@@ -5,4 +5,11 @@ class Employer < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   validates :phone_number, :country_code, presence: true
+  
+  after_create :send_verification_token
+  
+  def send_verification_token
+    EmployerMailer.welcome_email(self).deliver_now
+  end
+    
 end

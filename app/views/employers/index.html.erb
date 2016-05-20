@@ -1,9 +1,11 @@
-<% if employer_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_employer_session_path, :method => :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_employer_session_path)  %>  
-  </li>
-<% end %>
+<div class="alert alert-danger" role="alert">
+  You haven't verified your mobile number and email.
+  <a href="#" class="alert-link">Click here to verify</a>
+</div>
+
+<div class = "row margin-bottom">
+      <div class = "col-md-4"></div>
+      <div class = "col-md-2"><h2></div>
+      <div class = "col-md-3 "><h2><%= link_to "Update Email?", edit_employer_path(current_employer.id), :class => "btn btn-success btn-xs" %></h2></div>
+      <div class = "col-md-1"></div>
+    </div>
