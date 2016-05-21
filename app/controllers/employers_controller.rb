@@ -41,10 +41,10 @@ class EmployersController < ApplicationController
     
     def validate_email_token
       token = params[:email_token]
-      if !current_employer.email_verification.verified && token.present?
-        current_employer.verify_email_token(token)
-        flash[:notice] = "Successfully Verified your token"
-        redirect_to verify_email_employer_path 
+      if !current_employer.email_verification.verified && token.present? && token == current_employer.email_verification.unique_token
+          current_employer.verify_email_token(token)
+          flash[:notice] = "Successfully Verified your token"
+          redirect_to verify_email_employer_path
       else
         flash[:notice] = "Invalid token"
         redirect_to verify_email_employer_path 
@@ -53,7 +53,7 @@ class EmployersController < ApplicationController
     
     def validate_phone_token
       token = params[:phone_token]
-      if !current_employer.phone_verification.verified && token.present?
+      if !current_employer.phone_verification.verified && token.present? && token == current_employer.phone_verification.unique_token
         current_employer.verify_phone_token(token)
         flash[:notice] = "Successfully Verified your token"
         redirect_to verify_phone_employer_path 
