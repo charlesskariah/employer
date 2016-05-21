@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520141431) do
+ActiveRecord::Schema.define(version: 20160521073542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "email_verifications", force: :cascade do |t|
+    t.integer  "employer_id"
+    t.string   "unique_token"
+    t.boolean  "verified",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "email_verifications", ["employer_id"], name: "index_email_verifications_on_employer_id", using: :btree
 
   create_table "employers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -39,5 +49,15 @@ ActiveRecord::Schema.define(version: 20160520141431) do
 
   add_index "employers", ["email"], name: "index_employers_on_email", unique: true, using: :btree
   add_index "employers", ["reset_password_token"], name: "index_employers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "phone_verifications", force: :cascade do |t|
+    t.integer  "employer_id"
+    t.string   "unique_token"
+    t.boolean  "verified",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "phone_verifications", ["employer_id"], name: "index_phone_verifications_on_employer_id", using: :btree
 
 end

@@ -4,12 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to Employer Portal, <%= @employer.name %></h1>
+    <h1>Hello, <%= @employer.name %></h1>
     <p>
-      You have successfully signed up to Employer Portal,
-      your username is: <%= @employer.email %>.<br>
+      Someone have requested verification token for the following email-id: <%= @employer.email%>
       
       To verify the email, kindly enter this verification token in the required field <br>
+      
       
       <h3>Token : <%= @unique_token%></h3>
       
@@ -17,6 +17,6 @@
     <p>
       To login to the site, just follow this link: .
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>Thanks Employer Portal Team</p>
   </body>
 </html>
