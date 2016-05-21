@@ -1,11 +1,23 @@
-<div class="alert alert-danger" role="alert">
-  You haven't verified your mobile number and email.
-  <a href="#" class="alert-link">Click here to verify</a>
-</div>
 
-<div class = "row margin-bottom">
+<% if !current_employer.email_verified%>
+  <div class="alert alert-danger" role="alert">
+    You haven't verified your  email.
+    <a href="#" class="alert-link">Click here to verify</a>
+  </div>
+<%end%>
+
+<% if !current_employer.phone_verified%>
+  <div class="alert alert-danger" role="alert">
+    You haven't verified your phone number.
+    <a href="#" class="alert-link">Click here to verify</a>
+  </div>
+<%end%>
+
+
+    <div class = "row margin-bottom">
       <div class = "col-md-4"></div>
       <div class = "col-md-2"><h2></div>
       <div class = "col-md-3 "><h2><%= link_to "Update Email?", edit_employer_path(current_employer.id), :class => "btn btn-success btn-xs" %></h2></div>
       <div class = "col-md-1"></div>
     </div>
+    

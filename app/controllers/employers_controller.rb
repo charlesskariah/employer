@@ -16,6 +16,6 @@ class EmployersController < ApplicationController
         flash[:error] = @employer.errors.full_messages[0]
         redirect_to edit_employer_path
       end
-   end
+    end
     
 end
