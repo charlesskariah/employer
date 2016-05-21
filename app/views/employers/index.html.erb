@@ -1,23 +1,61 @@
 
-<% if !current_employer.email_verified%>
-  <div class="alert alert-danger" role="alert">
-    You haven't verified your  email.
-    <a href="#" class="alert-link">Click here to verify</a>
-  </div>
-<%end%>
-
-<% if !current_employer.phone_verified%>
-  <div class="alert alert-danger" role="alert">
-    You haven't verified your phone number.
-    <a href="#" class="alert-link">Click here to verify</a>
-  </div>
-<%end%>
-
-
-    <div class = "row margin-bottom">
-      <div class = "col-md-4"></div>
-      <div class = "col-md-2"><h2></div>
-      <div class = "col-md-3 "><h2><%= link_to "Update Email?", edit_employer_path(current_employer.id), :class => "btn btn-success btn-xs" %></h2></div>
-      <div class = "col-md-1"></div>
-    </div>
     
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <h3> Employer Details </h3>
+    </tr>
+    <tr>
+      <th scope="row">Name</th>
+      <td><%= current_employer.name %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row"> Email</th>
+      <td><%= current_employer.email %></td>
+      <td>
+        <%if !current_employer.email_verified %>
+          <%= link_to "Not Verified! Click Here", verify_email_employer_path(current_employer.id), :class => "btn btn-danger"%>
+        <% else %>
+          <button type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp; Verified
+          </button>
+        <% end%>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Phone Number</th>
+      <td><%= current_employer.country_code + current_employer.phone_number %></td>
+      <td>
+        <%if !current_employer.phone_verified %>
+          <%= link_to "Not Verified! Click Here", verify_phone_employer_path(current_employer.id), :class => "btn btn-danger" %>
+        <% else %>
+          <button type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp; Verified
+          </button>
+        <% end%>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Location</th>
+      <td><%= current_employer.location %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Gender</th>
+      <td><%= current_employer.gender %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Date of Birth</th>
+      <td><%= current_employer.date_of_birth.strftime("%d, %B %Y") %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Last Updated At</th>
+      <td><%= current_employer.updated_at.strftime("%d, %B %Y") %></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to "Click here to update Email or PhoneNumber?", edit_employer_path(current_employer.id), :class => "btn btn-success" %>
