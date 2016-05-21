@@ -10,6 +10,7 @@ class Employer < ActiveRecord::Base
   has_one :email_verification
   
   after_create :create_verification_tokens
+  around_update :check_if_phone_is_changed, :check_if_email_is_changed
   
   
   def create_verification_tokens
@@ -32,7 +33,7 @@ class Employer < ActiveRecord::Base
   
   def send_token
     token = self.phone_verification.unique_token
-    text = "Your verification code is #{token}.Please use the same for verify your mobile number"
+    text = "Your new verification code is #{token}.Please use the same for verify your mobile number"
     to_number = self.country_code + self.phone_number
     require 'nexmo'
     nexmo = Nexmo::Client.new(key: 'af9cc18a', secret: '158225e56ffd5b82')
@@ -48,9 +49,42 @@ class Employer < ActiveRecord::Base
   def phone_verified
     self.phone_verification.verified
   end
-      
+  
+  def verify_email_token(token)
+    self.email_verification.update_columns(verified: true) if self.email_verification.unique_token == token
+  end
+  
+  def verify_phone_token(token)
+    self.phone_verification.update_columns(verified: true) if self.phone_verification.unique_token == token
+  end
+  
+  def change_phone_status
+    self.phone_verification.update_columns(verified: false, unique_token: random_string)
+    send_token
+  end
+  
+  def change_email_status
+    self.email_verification.update_columns(verified: false, unique_token: random_string)
+    EmployerMailer.send_token(self).deliver_now
+  end
+  
   def random_string
     SecureRandom.hex(4)
+  end
+  
+    private
+
+  def check_if_email_is_changed
+    email_changed = self.email_changed?
+    yield
+    self.change_email_status if email_changed
+  end
+  
+  def check_if_phone_is_changed
+    phone_number_changed = self.phone_number_changed?
+    country_code_changed = self.country_code_changed?
+    yield
+    self.change_phone_status if phone_number_changed || country_code_changed
   end
 
 end

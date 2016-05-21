@@ -1,25 +1,43 @@
+<%if flash[:error].present?%>
+  <div class="alert alert-danger alert-dismissible fade_alerts" role="alert"> <%= flash[:error]%>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
+<% end %>
+    
+    <div class = "row margin-bottom">
+      <div class = "col-md-4"></div>
+      <div class = "col-md-5"><h2>Update Details </h2></div>
+      <div class = "col-md-4"></div>
+    </div>
 <%= form_for @employer do |f| %>
     <div class = "row margin-bottom">
       <div class = "col-md-4"></div>
       <div class = "col-md-7"></div>
       <div class = "col-md-1"></div>
     </div>
-    <%if flash[:error].present?%>
-      <div class="alert alert-danger" role="alert">
-        <%= flash[:error]%>
-      </div>
-    <%end%>
     <div class = "row margin-bottom">
       <div class = "col-md-4"></div>
       <div class = "col-md-2"><%= f.label :email %></div>
       <div class = "col-md-3"><%= f.email_field :email, :class => "form-control", :placeholder => "Email"%></div>
       <div class = "col-md-4"></div>
     </div>
+    
+    <div class = "row margin-bottom">
+      <div class = "col-md-4"></div>
+      <div class = "col-md-2"><%= f.label :phone_number %></div>
+      <div class = "col-md-1"><%= f.select(:country_code, {:class => "form-control"}, :selected => @employer.country_code) do %>
+        <% [['India', "+91"], ['USA', "+1"], ["AFG", "+93"], ["Brazil", "+55"]].each do |c| -%>
+          <%= content_tag(:option, c.first, value: c.last) %>
+        <% end %>
+      <% end %></div>
+      <div class= "col-md-2"><%= f.number_field :phone_number, :class => "form-control"%></div>
+      <div class = "col-md-4"></div>
+    </div>
 
     <div class = "row margin-bottom">
       <div class = "col-md-4"></div>
       <div class = "col-md-2"></div>
-      <div class = "col-md-2"><%= f.submit "Update", :class => "btn btn-primary" %></div>
+      <div class = "col-md-2"><%= f.submit "Update", :class => "btn btn-primary", data: { disable_with: "Updating..." } %></div>
       <div class = "col-md-4"></div>
     </div>
   <%end%>

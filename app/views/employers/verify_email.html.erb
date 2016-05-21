@@ -1,0 +1,42 @@
+<div class="jumbotron">
+<% if current_employer.email_verified %>
+<div class="alert alert-success" role="alert">
+  <h2> You have already verified your email id </h2>
+  <a href= "<%=root_path%>" class="alert-link">Click here to go back</a>
+</div>
+<% else%>
+<div class = "row">
+  <div class = "col-md-3"></div>
+  <div class = "col-md-6">
+    <h2>Verify your Email</h2>
+  </div>
+  <div class = "col-md-3"></div>
+</div>
+<%= form_tag(validate_email_token_employer_path) do %>
+<div class = "row">
+  <div class = "col-md-3"></div>
+  <div class = "col-md-4">
+      <%= text_field_tag(:email_token, '', :placeholder => "Enter your unique token", :class => "form-control")  %>
+  </div>
+  <div class = "col-md-2">
+    <%= submit_tag("Verify Email", :class => "btn btn-success", data: { disable_with: "Verifying..." }) %>
+  </div>
+  <div class = "col-md-3"></div>
+</div>
+<div class = "row">
+  <div class = "col-md-3"></div>
+  <div class = "col-md-4">
+    <%= link_to "Resend Code for Email", resend_email_verification_employer_path(current_employer.id), data: { disable_with: "Sending..."}, :remote => true %>
+  </div>
+  <div class = "col-md-5"></div>
+</div>
+<div class = "row">
+  <div class = "col-md-3"></div>
+  <div class = "col-md-4 color-div" id= "email_verified" style="display: none;">
+    Email verification code sent to your email
+  </div>
+  <div class = "col-md-5"></div>
+</div>
+<% end %>
+<%end%>
+</div>

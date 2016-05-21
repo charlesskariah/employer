@@ -6,7 +6,16 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
    root 'employers#index'
    
-   resources :employers
+   resources :employers do 
+     member do
+       get 'resend_email_verification'
+       get 'resend_phone_verification'
+       get 'verify_email'
+       get 'verify_phone'
+       post 'validate_email_token'
+       post 'validate_phone_token'
+     end
+   end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
