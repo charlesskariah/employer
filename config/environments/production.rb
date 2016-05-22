@@ -32,8 +32,8 @@ Rails.application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     openssl_verify_mode: 'none',
-    user_name: "dragthemm@gmail.com",
-    password: "dragthem2101"
+    user_name: ENV["GMAIL_USERNAME"],
+    password: ENV["GMAIL_PASSWORD"]
   }
 
   # Disable serving static files from the `/public` folder by default since

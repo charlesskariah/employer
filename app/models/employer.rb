@@ -9,9 +9,10 @@ class Employer < ActiveRecord::Base
   has_one :phone_verification
   has_one :email_verification
   
-  after_create :create_verification_tokens
-  around_update :check_if_phone_is_changed, :check_if_email_is_changed
+  after_create :create_verification_tokens #to create tokens for email&phone and send notifications
+  around_update :check_if_phone_is_changed, :check_if_email_is_changed #to check any params like email/number change and sent notif for respective details
   
+  require 'nexmo'
   
   def create_verification_tokens
     create_email_verification
@@ -35,9 +36,8 @@ class Employer < ActiveRecord::Base
     token = self.phone_verification.unique_token
     text = "Your new verification code is #{token}.Please use the same for verify your mobile number"
     to_number = self.country_code + self.phone_number
-    require 'nexmo'
-    nexmo = Nexmo::Client.new(key: 'af9cc18a', secret: '158225e56ffd5b82')
-    response = nexmo.send_message(from: '+919562141230', to: to_number, text: text )
+    nexmo = Nexmo::Client.new(key: ENV["NEXMO_KEY"], secret: ENV["NEXMO_SECRET"])
+    response = nexmo.send_message(from: 'Ruby', to: to_number, text: text )
     puts response
   end
     
@@ -72,7 +72,7 @@ class Employer < ActiveRecord::Base
     SecureRandom.hex(4)
   end
   
-    private
+  private
 
   def check_if_email_is_changed
     email_changed = self.email_changed?

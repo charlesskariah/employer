@@ -61,7 +61,6 @@ class EmployersController < ApplicationController
         flash[:notice] = "Invalid token"
         redirect_to verify_phone_employer_path 
       end
-
     end
     
 end

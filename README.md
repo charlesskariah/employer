@@ -1,24 +1,32 @@
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
 
 
-Welcome to your Rails project on Cloud9 IDE!
+## Welcome to your Employer Portal
 
-To get started, just do the following:
+This is a test application for the authentiation of phone number and email via veryfying token send to inboxes.
 
-1. Run the project with the "Run Project" button in the menu bar on top of the IDE.
-2. Preview your new app by clicking on the URL that appears in the Run panel below (https://codebrahma-charlesskariah.c9users.io/).
+1. Rails :4.2.5
+
+2. Ruby  :2.3.0
+
+3. Database :Postgres
+
+4. IDE :Cloud9, For reference: https://c9.io/
+
+5. Sms Service Used: Nesmo , gem 'nexmo', https://www.nexmo.com/
+
+6. Email Services, gmail
+
+7. Frontend Bootstrap 3 
+
+8. Hosting : Heroku, employercode.herokuapp.com
+
+Note: Currently sms service only work for few numbers which are confirmed with nexmo, since this is a free service.On upgrading the plan you can send to any numbers.
+
+
 
 Happy coding!
-The Cloud9 IDE team
+Employers Portal
 
 
-## Support & Documentation
 
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
