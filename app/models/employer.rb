@@ -6,8 +6,8 @@ class Employer < ActiveRecord::Base
          
   validates :phone_number, :country_code, presence: true
   
-  has_one :phone_verification
-  has_one :email_verification
+  has_one :phone_verification, dependent: :destroy
+  has_one :email_verification, dependent: :destroy
   
   after_create :create_verification_tokens #to create tokens for email&phone and send notifications
   around_update :check_if_phone_is_changed, :check_if_email_is_changed #to check any params like email/number change and sent notif for respective details
